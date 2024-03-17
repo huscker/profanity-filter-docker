@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  workflow_run:
+    workflows:
+      - Push image
+    types:
+      - completed
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_DB=test
+      POSTGRES_USER=test
+      POSTGRES_PASSWORD=test
+      POSTGRES_HOST=postgres
+    services:
+      postgres:
+        image: postgres:15.6
+        env:
+          POSTGRES_DB=${POSTGRES_DATABASE}
+          POSTGRES_USER=${POSTGRES_USER}
+          POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+        ports:
+          - 5432:5432
+    steps:
+      - name: Dump GitHub context
+        run: docker run huscker/profanity-filter-docker:latest poetry run pytest

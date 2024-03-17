@@ -1,0 +1,66 @@
+postgresql:
+  enabled: true
+  image:
+    tag: 15.6.0
+  auth:
+    postgresPassword: postgres
+    username: filter
+    password: filter
+    database: filter
+  primary:
+    resources: {}
+    persistence:
+      size: 4Gi
+    livenessProbe:
+      enabled: true
+    readinessProbe:
+      enabled: true
+  metrics:
+    enabled: false
+    serviceMonitor:
+      enabled: true
+
+api:
+  replicaCount: 1
+  affinity: {}
+  tolerations: {}
+  image:
+    registry: docker.io
+    repository: huscker/profanity-filter-docker
+    tag: latest
+    pullPolicy: Always
+
+  autoscaling:
+    enabled: false
+    minReplicas: 3
+    maxReplicas: 20
+    targetCPUUtilizationPercentage: 30
+    targetMemoryUtilizationPercentage:
+
+  service:
+    port: 8000
+
+  resources: {}
+
+  metrics:
+    enabled: false
+
+admin:
+  replicaCount: 1
+  affinity: {}
+  tolerations: {}
+  image:
+    registry: docker.io
+    repository: huscker/profanity-filter-docker
+    tag: latest
+    pullPolicy: Always
+
+  service:
+    port: 8000
+
+  resources: {}
+
+ingress:
+  hostname: ""
+  className: ""
+  annotations: {}

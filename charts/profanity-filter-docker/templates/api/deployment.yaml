@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "common.names.fullname" . }}-api
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: api
+spec:
+  {{- if not .Values.api.autoscaling.enabled }}
+  replicas: {{ .Values.api.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "common.labels.matchLabels" . | nindent 6 }}
+      app.kubernetes.io/component: api
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: api
+    spec:
+      {{- if .Values.api.affinity }}
+      affinity: {{- toYaml . | nindent 12 }}
+      {{- end }}
+      {{- with .Values.api.tolerations }}
+      tolerations: {{ toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: api
+        image: {{ include "api.image" . }}
+        imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+        command: [ "uvicorn", "service.entrypoints.api:app", "--host", "0.0.0.0", "--port", "{{ .Values.api.service.port }}", "--log-level", "info" ]
+        env:
+          {{- include "env" . | nindent 10 }}
+        ports:
+          - name: http
+            containerPort: {{ .Values.api.service.port }}
+            protocol: TCP
+        {{- if .Values.api.resources }}
+        resources: {{- toYaml . | nindent 12 }}
+        {{- end }}
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: http
+          periodSeconds: 10
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /health
+            port: http
+          periodSeconds: 1
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 15

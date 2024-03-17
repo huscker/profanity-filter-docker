@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "migrations.jobname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "common.labels.standard" . | nindent 4 }}
+    app.kubernetes.io/component: migrations
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "common.labels.standard" . | nindent 8 }}
+        app.kubernetes.io/component: migrations
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: migrations
+        image: {{ include "api.image" . }}
+        imagePullPolicy: {{ .Values.api.image.pullPolicy }}
+        command: ["aerich", "upgrade"]
+        env: {{- include "env" . | nindent 10 }}
