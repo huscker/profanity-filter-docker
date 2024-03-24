@@ -1,5 +1,6 @@
 from typing import Optional, Self
 
+import lazy_object_proxy
 from pydantic import PostgresDsn, RedisDsn, model_validator
 from pydantic_settings import BaseSettings
 
@@ -18,6 +19,8 @@ class Config(BaseSettings):
     REDIS_PORT: int
     REDIS_URL: Optional[RedisDsn] = None
 
+    TORTOISE_ORM: Optional[dict] = None
+
     @model_validator(mode="before")
     def assemble_postgres_db_url(self) -> Self:
         self["POSTGRES_URL"] = PostgresDsn.build(
@@ -31,14 +34,41 @@ class Config(BaseSettings):
         return self
 
     @model_validator(mode="before")
-    def redis_postgres_db_url(self) -> Self:
+    def assemble_redis_postgres_db_url(self) -> Self:
         self["REDIS_URL"] = RedisDsn.build(
             scheme="redis",
             host=self["REDIS_HOST"],
-            user=self["REDIS_USER"],
+            username=self["REDIS_USER"],
             password=self["REDIS_PASSWORD"],
             port=int(self["REDIS_PORT"]),
         )
+        return self
+
+    @model_validator(mode="before")
+    def assemble_tortoise_orm_conf(self) -> Self:
+        self["TORTOISE_ORM"] = {
+            "connections": {
+                "default": {
+                    "engine": "tortoise.backends.asyncpg",
+                    "credentials": {
+                        "host": self["POSTGRES_HOST"],
+                        "port": int(self["POSTGRES_PORT"]),
+                        "user": self["POSTGRES_USER"],
+                        "password": self["POSTGRES_PASSWORD"],
+                        "database": self["POSTGRES_DATABASE"],
+                    },
+                },
+            },
+            "apps": {
+                "models": {
+                    "models": ["service.filtering.models", "service.word_lists.models", "aerich.models"],
+                    "default_connection": "default",
+                    "connection": "default",
+                },
+            },
+            "use_tz": True,
+            "timezone": "UTC",
+        }
         return self
 
     class Config:
@@ -48,3 +78,7 @@ class Config(BaseSettings):
 
 def get_config():
     return Config()
+
+
+config = lazy_object_proxy.Proxy(get_config)
+orm_config = lazy_object_proxy.Proxy(lambda: config.TORTOISE_ORM)

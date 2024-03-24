@@ -1,11 +1,12 @@
-from fastapi import Depends
-
-from service.config import Config, ProviderTypes, get_config
-from service.providers.base import FilteringProvider
+from service.providers.base import FilteringProvider, ProviderTypes
 from service.providers.profanity_filter import ProfanityFilterProvider
 
 
-def get_provider(config: Config = Depends(get_config)) -> FilteringProvider:
-    match config.provider:
+def get_provider(
+    provider_type: ProviderTypes, max_relative_distance: float, censor_whole_words: bool
+) -> FilteringProvider:
+    match provider_type:
         case ProviderTypes.PROFANITY_FILTER:
-            return ProfanityFilterProvider()
+            return ProfanityFilterProvider(
+                max_relative_distance=max_relative_distance, censor_whole_words=censor_whole_words
+            )

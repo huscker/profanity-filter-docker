@@ -1,14 +1,12 @@
-from enum import StrEnum
-
 from pydantic import BaseModel
 
-
-class ProviderTypes(StrEnum):
-    PROFANITY_FILTER = "PROFANITY_FILTER"
+from service.providers.base import ProviderTypes
 
 
 class CensorTextRequest(BaseModel):
     text: str
+    provider: ProviderTypes
+    word_list_id: int
 
 
 class CensorTextResponse(BaseModel):

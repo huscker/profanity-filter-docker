@@ -4,9 +4,12 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi_admin.app import app as admin_app
 from prometheus_client import Counter
+from tortoise.contrib.fastapi import register_tortoise
 
-from service.core.exceptions import BusinessException
+from service.config import orm_config
+from service.filtering.routes import router as filtering_router
 from service.monitoring import instrumentator
+from service.word_lists.routes import router as word_lists_router
 
 exceptions_by_type = Counter(
     "http_exceptions_total_by_type",
@@ -37,15 +40,17 @@ async def exception_handler(request: Request, exc: Exception):
     )
 
 
-@app.exception_handler(BusinessException)
-async def business_exception_handler(request: Request, exc: BusinessException):
-    return JSONResponse({"code": exc.code, "detail": exc.detail}, status_code=exc.status_code)
-
+register_tortoise(
+    app,
+    config=orm_config,
+    generate_schemas=True,
+    add_exception_handlers=True,
+)
 
 app.mount("/admin/", admin_app)
-# app.include_router(profanity_router, tags=["filter"], prefix="/api/filter")
-# app.include_router(
-#     forbidden_keywords_router,
-#     tags=["keywords"],
-#     prefix="/api/keywords",
-# )
+app.include_router(
+    filtering_router,
+    tags=["Filtering"],
+    prefix="/api/filtering",
+)
+app.include_router(word_lists_router, tags=["Word lists"], prefix="/api/word-list/")
