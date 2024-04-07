@@ -19,7 +19,6 @@ async def get_word_list(word_list_id: int) -> WordListWordsResponse:
     return WordListWordsResponse(words=[word.name for word in words])
 
 
-# TODO: Обернуть в транзакцию
 @router.put("/{word_list_id}/", status_code=204)
 async def update_word_list(word_list_id: int, request: WordListUpdateRequest):
     word_list = await WordList.get(id=word_list_id)

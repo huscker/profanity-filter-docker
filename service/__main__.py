@@ -7,6 +7,7 @@ from prometheus_client import Counter
 from tortoise.contrib.fastapi import register_tortoise
 
 from service.config import orm_config
+from service.filtering.providers.manager import manager
 from service.filtering.routes import router as filtering_router
 from service.monitoring import instrumentator
 from service.word_lists.routes import router as word_lists_router
@@ -38,6 +39,11 @@ async def exception_handler(request: Request, exc: Exception):
         {"code": "internal_server_error", "detail": "Internal Server Error"},
         status_code=500,
     )
+
+
+@app.on_event("startup")
+async def startup():
+    await manager.reload_providers()
 
 
 register_tortoise(

@@ -19,6 +19,8 @@ class Config(BaseSettings):
     REDIS_PORT: int
     REDIS_URL: Optional[RedisDsn] = None
 
+    WORDLIST_CACHE_TTL: int = 10
+
     TORTOISE_ORM: Optional[dict] = None
 
     @model_validator(mode="before")
@@ -80,5 +82,5 @@ def get_config():
     return Config()
 
 
-config = lazy_object_proxy.Proxy(get_config)
-orm_config = lazy_object_proxy.Proxy(lambda: config.TORTOISE_ORM)
+config: Config = lazy_object_proxy.Proxy(get_config)
+orm_config: dict = lazy_object_proxy.Proxy(lambda: config.TORTOISE_ORM)

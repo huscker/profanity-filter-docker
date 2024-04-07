@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from service.providers.base import ProviderTypes
+from service.filtering.providers.base import ProviderTypes
 
 
 class CensorTextRequest(BaseModel):

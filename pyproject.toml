@@ -20,6 +20,7 @@ pytest = "^8.1.1"
 aerich = "^0.7.2"
 lazy-object-proxy = "^1.10.0"
 asyncpg = "^0.29.0"
+aiocache = "^0.12.2"
 
 
 

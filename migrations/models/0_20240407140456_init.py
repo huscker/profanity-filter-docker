@@ -3,7 +3,7 @@ from tortoise import BaseDBAsyncClient
 
 async def upgrade(db: BaseDBAsyncClient) -> str:
     return """
-        CREATE TABLE IF NOT EXISTS "profanityfiltersettings" (
+        CREATE TABLE IF NOT EXISTS "profanityfilterprovidersettings" (
     "id" SERIAL NOT NULL PRIMARY KEY,
     "max_relative_distance" DOUBLE PRECISION NOT NULL  DEFAULT 0.3,
     "censor_whole_words" BOOL NOT NULL  DEFAULT True

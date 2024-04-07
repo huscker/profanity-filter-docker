@@ -23,6 +23,22 @@ asyncmy = ["asyncmy (>=0.2.8rc1,<0.3.0)"]
 asyncpg = ["asyncpg"]
 
 [[package]]
+name = "aiocache"
+version = "0.12.2"
+description = "multi backend asyncio cache"
+optional = false
+python-versions = "*"
+files = [
+    {file = "aiocache-0.12.2-py2.py3-none-any.whl", hash = "sha256:9b6fa30634ab0bfc3ecc44928a91ff07c6ea16d27d55469636b296ebc6eb5918"},
+    {file = "aiocache-0.12.2.tar.gz", hash = "sha256:b41c9a145b050a5dcbae1599f847db6dd445193b1f3bd172d8e0fe0cb9e96684"},
+]
+
+[package.extras]
+memcached = ["aiomcache (>=0.5.2)"]
+msgpack = ["msgpack (>=0.5.5)"]
+redis = ["redis (>=4.2.0)"]
+
+[[package]]
 name = "aiofiles"
 version = "23.2.1"
 description = "File support for asyncio."
@@ -2183,4 +2199,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "4cea442985e1fa4cce67ddca6c5547e9a9b4a355c0eb400e940473e2489df283"
+content-hash = "714c0c72f0082f10bf3d80225d1218e843e59730fbb5796b87797886fb8923c7"
