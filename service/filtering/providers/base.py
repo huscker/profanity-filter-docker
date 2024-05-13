@@ -1,11 +1,11 @@
 from abc import abstractmethod
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 
 from service.word_lists.manager import WordlistManager
 
 
-class ProviderTypes(StrEnum):
+class ProviderTypes(str, Enum):
     PROFANITY_FILTER = "PROFANITY_FILTER"
 
 

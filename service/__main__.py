@@ -53,10 +53,10 @@ register_tortoise(
     add_exception_handlers=True,
 )
 
-app.mount("/admin/", admin_app)
+app.mount("/admin", admin_app)
 app.include_router(
     filtering_router,
     tags=["Filtering"],
     prefix="/api/filtering",
 )
-app.include_router(word_lists_router, tags=["Word lists"], prefix="/api/word-list/")
+app.include_router(word_lists_router, tags=["Word lists"], prefix="/api/word-list")

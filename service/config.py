@@ -1,4 +1,4 @@
-from typing import Optional, Self
+from typing import Optional
 
 import lazy_object_proxy
 from pydantic import PostgresDsn, RedisDsn, model_validator
@@ -24,7 +24,7 @@ class Config(BaseSettings):
     TORTOISE_ORM: Optional[dict] = None
 
     @model_validator(mode="before")
-    def assemble_postgres_db_url(self) -> Self:
+    def assemble_postgres_db_url(self) -> "Config":
         self["POSTGRES_URL"] = PostgresDsn.build(
             scheme="postgresql+asyncpg",
             username=self["POSTGRES_USER"],
@@ -36,7 +36,7 @@ class Config(BaseSettings):
         return self
 
     @model_validator(mode="before")
-    def assemble_redis_postgres_db_url(self) -> Self:
+    def assemble_redis_postgres_db_url(self) -> "Config":
         self["REDIS_URL"] = RedisDsn.build(
             scheme="redis",
             host=self["REDIS_HOST"],
@@ -47,7 +47,7 @@ class Config(BaseSettings):
         return self
 
     @model_validator(mode="before")
-    def assemble_tortoise_orm_conf(self) -> Self:
+    def assemble_tortoise_orm_conf(self) -> "Config":
         self["TORTOISE_ORM"] = {
             "connections": {
                 "default": {
