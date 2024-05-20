@@ -1,6 +1,3 @@
-from aiocache import Cache, cached
-
-from service.config import config
 from service.word_lists.models import WordList
 
 
@@ -17,7 +14,6 @@ class WordlistManager:
             words = await word_list.words.all().values("value")
             self._word_lists[word_list.id] = [word["value"] for word in words]
 
-    @cached(ttl=config.WORDLIST_CACHE_TTL, cache=Cache.MEMORY)
     async def get_word_lists(self) -> dict[int, list[str]]:
         await self._refresh_lists()
         return self._word_lists

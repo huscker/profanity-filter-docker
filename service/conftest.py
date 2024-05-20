@@ -22,9 +22,12 @@ def event_loop():
     loop.close()
 
 
-@pytest_asyncio.fixture(scope="session", autouse=True)
+@pytest_asyncio.fixture(scope="function", autouse=True)
 async def initialize_tests(event_loop):
-    await Tortoise.init(config=config.TORTOISE_ORM, _create_db=True)
+    await Tortoise.init(config=config.TORTOISE_ORM, _create_db=False)
     await Tortoise.generate_schemas()
     yield
-    await Tortoise._drop_databases()
+    for model in Tortoise.describe_models().keys():
+        if model != "models.Aerich":
+            table_name = Tortoise.describe_models()[model]["table"]
+            await Tortoise.get_connection("default").execute_query(f"TRUNCATE TABLE {table_name} CASCADE;")
