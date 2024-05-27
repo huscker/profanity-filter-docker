@@ -1,4 +1,4 @@
-# profanity-filter-docker
+# [WIP] profanity-filter-docker
 
 ```bash
 mkdir -p profanity-filter/data
