@@ -12,6 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Add chart repositories
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+
       - name: Configure Git
         run: |
           git config user.name "$GITHUB_ACTOR"
