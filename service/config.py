@@ -16,7 +16,7 @@ class Config(BaseSettings):
     REDIS_USER: str = ""
     REDIS_PASSWORD: str = ""
     REDIS_HOST: str
-    REDIS_PORT: int
+    REDIS_PORT: int = 6379
     REDIS_URL: Optional[RedisDsn] = None
 
     WORDLIST_CACHE_TTL: int = 10

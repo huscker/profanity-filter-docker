@@ -1,0 +1,54 @@
+version: "3.7"
+
+services:
+  postgresql:
+    container_name: "postgresql"
+    image: postgres:15.6
+    hostname: postgresql
+    volumes:
+      - ./app/migrations/postgres:/docker-entrypoint-initdb.d/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - api
+  redis:
+    container_name: "redis"
+    image: redis:6.2.4
+    hostname: redis
+    expose:
+      - 6379
+    environment:
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - api
+  api:
+    container_name: "api"
+    image: ""
+    ports:
+      - "8000:8000"
+    command: |
+      poetry run uvicorn api.__main__:app --host 0.0.0.0 --port 8000 --log-level info
+    depends_on:
+      - redis
+      - postgresql
+    environment:
+      - POSTGRES_HOST=postgresql
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DATABASE=${POSTGRES_DATABASE}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_USER=${REDIS_USER}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    restart: always
+    networks:
+      - api
+networks:
+  api:

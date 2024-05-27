@@ -1,0 +1,67 @@
+postgresql:
+  enabled: true
+  image:
+    tag: 15.6.0
+  auth:
+    postgresPassword: postgres
+    username: filter
+    password: filter
+    database: filter
+  primary:
+    resources: {}
+    persistence:
+      size: 4Gi
+    livenessProbe:
+      enabled: true
+    readinessProbe:
+      enabled: true
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+redis:
+  enabled: true
+  architecture: standalone
+  image:
+    tag: 6.2.6
+  auth:
+    enabled: false
+    password: ""
+  master:
+    resources: {}
+    persistence:
+      size: 1Gi
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+
+api:
+  replicaCount: 1
+  affinity: {}
+  tolerations: {}
+  image:
+    repository: registry.gitlab.com/bulldrop/bulldrop/frontend
+    tag: latest
+    pullPolicy: IfNotPresent
+
+  autoscaling:
+    enabled: false
+    minReplicas: 3
+    maxReplicas: 20
+    targetCPUUtilizationPercentage: 30
+    targetMemoryUtilizationPercentage:
+
+  service:
+    port: 8000
+
+  resources: {}
+
+  metrics:
+    enabled: true
+
+ingress:
+  hostname: ""
+  className: ""
+  annotations: {}
