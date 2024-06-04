@@ -1,6 +1,4 @@
-ARG CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX
-
-FROM ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/python:3.8.17-slim-buster
+FROM python:3.10-slim-buster
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -22,8 +20,3 @@ RUN poetry install --no-root
 RUN python -m spacy download en
 
 COPY . .
-
-RUN wget -nv -O /app/app/profanity_filter/data/en.aff https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff && \
-    wget -nv -O /app/app/profanity_filter/data/en.dic https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic && \
-    wget -nv -O /app/app/profanity_filter/data/ru.aff https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.aff && \
-    wget -nv -O /app/app/profanity_filter/data/ru.dic https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/ru_RU.dic

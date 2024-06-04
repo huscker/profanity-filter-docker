@@ -42,7 +42,7 @@ api:
   affinity: {}
   tolerations: {}
   image:
-    repository: registry.gitlab.com/bulldrop/bulldrop/frontend
+    repository: ghcr.io/huscker/profanity-filter-docker:latest
     tag: latest
     pullPolicy: IfNotPresent
 
