@@ -19,5 +19,5 @@ jobs:
         password: ${{ secrets.DOCKER_TOKEN }}
     - name: Build the Docker image
       run: docker build . -t huscker/profanity-filter-docker:latest
-    - name: Push newly built docker image
+    - name: Push newly built Docker image
       run: docker push huscker/profanity-filter-docker:latest

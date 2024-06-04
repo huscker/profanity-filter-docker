@@ -2,11 +2,10 @@ version: "3.7"
 
 services:
   postgresql:
-    container_name: "postgresql"
     image: postgres:15.6
     hostname: postgresql
     volumes:
-      - ./app/migrations/postgres:/docker-entrypoint-initdb.d/
+      - postgres_data:/var/lib/postgresql/data
     expose:
       - 5432
     environment:
@@ -14,9 +13,8 @@ services:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
-      - api
+      - web
   redis:
-    container_name: "redis"
     image: redis:6.2.4
     hostname: redis
     expose:
@@ -26,10 +24,9 @@ services:
       - POSTGRES_USER=${POSTGRES_USERNAME}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
-      - api
+      - web
   api:
-    container_name: "api"
-    image: ""
+    image: "huscker/profanity-filter-docker:latest"
     ports:
       - "8000:8000"
     command: |
@@ -49,6 +46,8 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     restart: always
     networks:
-      - api
+      - web
 networks:
-  api:
+  web:
+volumes:
+  postgres_data:
