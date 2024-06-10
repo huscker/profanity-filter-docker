@@ -1,8 +1,11 @@
+import logging
 from typing import Optional
 
 import lazy_object_proxy
 from pydantic import PostgresDsn, RedisDsn, model_validator
 from pydantic_settings import BaseSettings
+
+logging.basicConfig(level=logging.INFO)
 
 
 class Config(BaseSettings):
@@ -17,6 +20,7 @@ class Config(BaseSettings):
     REDIS_PASSWORD: str = ""
     REDIS_HOST: str
     REDIS_PORT: int = 6379
+    REDIS_DATABASE: int = 0
     REDIS_URL: Optional[RedisDsn] = None
 
     WORDLIST_CACHE_TTL: int = 10
@@ -43,6 +47,7 @@ class Config(BaseSettings):
             username=self["REDIS_USER"],
             password=self["REDIS_PASSWORD"],
             port=int(self["REDIS_PORT"]),
+            path=f"{self['REDIS_DATABASE']}",
         )
         return self
 

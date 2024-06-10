@@ -1,6 +1,6 @@
 from asyncio import gather
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Body
 
 from service.word_lists.models import Word, WordList
 from service.word_lists.schemas import WordListPydantic, WordListsResponse, WordListUpdateRequest, WordListWordsResponse
@@ -12,6 +12,11 @@ router = APIRouter()
 async def get_word_lists() -> WordListsResponse:
     word_lists = [WordListPydantic.from_tortoise_orm(wordlist) for wordlist in await WordList.all()]
     return WordListsResponse(word_lists=await gather(*word_lists))
+
+
+@router.post("/", status_code=201)
+async def create_word_list(name: str = Body()):
+    await WordList.create(name=name)
 
 
 @router.get("/{word_list_id}/", response_model=WordListWordsResponse)
