@@ -53,7 +53,8 @@ helm repo add profanity-filter-docker https://huscker.github.io/profanity-filter
 ```bash
 helm install my-profanity-filter profanity-filter-docker/profanity-filter-docker --version 0.1.0
 ```
-
+# Demo
+You can view demo following this [link](http://195.19.93.105:8000/api/docs).
 # Contribute guide
 1. Fork repository
 2. Clone your fork
