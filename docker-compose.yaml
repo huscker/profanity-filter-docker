@@ -14,6 +14,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
       - web
+    restart: always
   redis:
     image: redis:6.2.4
     hostname: redis
@@ -25,12 +26,14 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     networks:
       - web
+    restart: always
   api:
     image: "huscker/profanity-filter-docker:latest"
+    pull_policy: always
     ports:
       - "8000:8000"
     command: |
-      poetry run uvicorn api.__main__:app --host 0.0.0.0 --port 8000 --log-level info
+      poetry run uvicorn service.__main__:app --host 0.0.0.0 --port 8000 --log-level info
     depends_on:
       - redis
       - postgresql
@@ -44,6 +47,7 @@ services:
       - REDIS_PORT=6379
       - REDIS_USER=${REDIS_USER}
       - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_DATABASE=0
     restart: always
     networks:
       - web
