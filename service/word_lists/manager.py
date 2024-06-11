@@ -20,4 +20,4 @@ class WordlistManager:
 
     async def get_list_by_id(self, id: int) -> list[str]:
         word_lists = await self.get_word_lists()
-        return word_lists[id]
+        return word_lists.get(id) or []
