@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import Optional
 
 import lazy_object_proxy
@@ -26,6 +27,8 @@ class Config(BaseSettings):
     WORDLIST_CACHE_TTL: int = 10
 
     TORTOISE_ORM: Optional[dict] = None
+
+    BASE_DIR: str = os.path.dirname(os.path.abspath(__file__))
 
     @model_validator(mode="before")
     def assemble_postgres_db_url(self) -> "Config":

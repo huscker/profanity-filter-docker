@@ -1,4 +1,10 @@
-# profanity-filter-docker
+# Profanity filter
+
+[![Build and Tests](https://img.shields.io/github/actions/workflow/status/huscker/profanity-filter-docker/build.yaml?branch=main)](https://github.com/huscker/profanity-filter-docker/actions/workflows/build.yaml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/huscker/profanity-filter-docker)](https://hub.docker.com/r/huscker/profanity-filter-docker)
+[![Artifact Hub repo](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/profanity-filter-docker)](https://artifacthub.io/packages/helm/profanity-filter-docker/profanity-filter-docker)
+[![Apache-2.0 license](https://img.shields.io/github/license/huscker/profanity-filter-docker)](https://github.com/huscker/profanity-filter-docker/blob/main/LICENSE)
+---
 Open-source service for filtering profane text.
 
 Currently supported filtering backends:
@@ -53,8 +59,8 @@ helm repo add profanity-filter-docker https://huscker.github.io/profanity-filter
 ```bash
 helm install my-profanity-filter profanity-filter-docker/profanity-filter-docker --version 0.1.0
 ```
-# Demo
-You can view demo following this [link](http://195.19.93.105:8000/api/docs).
+# Online demo
+Try out [online demo](http://195.19.93.105:8000/api/docs).
 # Contribute guide
 1. Fork repository
 2. Clone your fork

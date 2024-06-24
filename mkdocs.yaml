@@ -1,0 +1,8 @@
+site_name: Profanity filter
+site_description: Project documentation on profanity filter service.
+edit_uri: blob/master/docs/
+nav:
+  - Home: index.md
+  - User guide: user-guide/
+  - Developer guide: developer-guide/
+theme: readthedocs

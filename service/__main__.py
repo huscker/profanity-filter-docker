@@ -1,15 +1,15 @@
+import os
 from urllib.request import Request
 
+import redis
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from fastapi_admin.app import app as admin_app
 from prometheus_client import Counter
 from tortoise.contrib.fastapi import register_tortoise
 
-from service.config import orm_config
-from service.filtering.routes import router as filtering_router
+from service.config import config, orm_config
 from service.monitoring import instrumentator
-from service.word_lists.routes import router as word_lists_router
 
 exceptions_by_type = Counter(
     "http_exceptions_total_by_type",
@@ -24,8 +24,18 @@ app = FastAPI(
     redoc_url=None,
     title="Profanity filter service",
 )
+app.mount("/admin", admin_app)
 instrumentator.instrument(app)
 instrumentator.expose(app, include_in_schema=True, should_gzip=True)
+
+
+@app.on_event("startup")
+async def startup():
+    await admin_app.configure(
+        logo_url="https://preview.tabler.io/static/logo-white.svg",
+        redis=redis.from_url(config.REDIS_URL.unicode_string()),
+        template_folders=[os.path.join(config.BASE_DIR, "templates")],
+    )
 
 
 @app.get("/health/", status_code=200)
@@ -48,10 +58,9 @@ register_tortoise(
     add_exception_handlers=True,
 )
 
-app.mount("/admin", admin_app)
-app.include_router(
-    filtering_router,
-    tags=["Filtering"],
-    prefix="/api/filtering",
-)
-app.include_router(word_lists_router, tags=["Word lists"], prefix="/api/word-list")
+# app.include_router(
+#     filtering_router,
+#     tags=["Filtering"],
+#     prefix="/api/filtering",
+# )
+# app.include_router(word_lists_router, tags=["Word lists"], prefix="/api/word-list")
