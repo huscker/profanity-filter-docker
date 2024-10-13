@@ -5,8 +5,8 @@ import pytest_asyncio
 from httpx import AsyncClient
 from tortoise import Tortoise
 
-from service.__main__ import app
 from service.config import config
+from service.entrypoints.api import app
 
 
 @pytest.fixture

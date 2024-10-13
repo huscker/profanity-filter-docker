@@ -1,9 +1,19 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "profanity-filter-docker"
+dynamic = ["version"]
+
 [tool.poetry]
 name = "profanity-filter-docker"
 version = "0.1.0"
 description = ""
 authors = ["huscker <egostalker03@mail.ru>"]
 readme = "README.md"
+
+[tool.setuptools_scm]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -29,7 +39,3 @@ numpy = "<2.0.0"
 tortoise_orm = "service.config.orm_config"
 location = "./migrations"
 src_folder = "./."
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
