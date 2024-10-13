@@ -3,9 +3,9 @@ name: Main Workflow
 on:
   push:
     branches: [ "master" ]
+    tags: ["v\d+.\d+.\d+"]
   pull_request:
     branches: [ "master" ]
-    tags: ["v\d+.\d+.\d+"]
 
 env:
   REGISTRY: ghcr.io
