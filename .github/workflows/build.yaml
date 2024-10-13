@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-    tags: ["*"]
+    tags: ["v\d+.\d+.\d+"]
 
 env:
   REGISTRY: ghcr.io
