@@ -8,7 +8,8 @@
     "github:NixOS/nixpkgs/nixos-23.05#stdenv.cc.cc.lib",
     "zlib@1.3.1",
     "pre-commit@3.7.1",
-    "mkdocs@1.6.1"
+    "mkdocs@1.6.1",
+    "hunspell@1.7.2"
   ],
   "env": {
     "LD_LIBRARY_PATH": "./.devbox/nix/profile/default/lib"
