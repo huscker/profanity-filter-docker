@@ -9,6 +9,7 @@ on:
 jobs:
   test_migration:
     runs-on: ubuntu-latest
+    container: ubuntu:latest
     env:
       POSTGRES_DATABASE: test
       POSTGRES_PASSWORD: test
