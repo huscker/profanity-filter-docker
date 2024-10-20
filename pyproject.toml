@@ -17,7 +17,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-profanity-filter = {git = "https://github.com/huscker/profanity-filter.git", extras = ["deep-analysis", "pymorphy2-ru"], rev="7a23c3204d482196c6a60b364c21690f6a5b3afe"}
+profanity-filter = {git = "https://github.com/huscker/profanity-filter.git", extras = ["deep-analysis", "pymorphy2-ru"], rev="836d1e8f38790a5518cea45a3822ed699da88915"}
 fastapi = "^0.110.0"
 uvicorn = "^0.28.0"
 fastapi-admin = "^1.0.4"
@@ -34,7 +34,6 @@ aiocache = "^0.12.2"
 factory-boy = "^3.3.0"
 factory-boy-extra = "^0.1.3"
 numpy = "<2.0.0"
-cyhunspell-py310 = "^2.0.3"
 
 [tool.aerich]
 tortoise_orm = "service.config.orm_config"
