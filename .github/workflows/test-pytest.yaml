@@ -1,0 +1,37 @@
+name: Test (pytest)
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test_pytest:
+    runs-on: ubuntu-latest
+    env:
+      POSTGRES_DB: test
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_HOST: postgres
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: ${POSTGRES_DATABASE}
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        ports:
+          - 5432:5432
+    steps:
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.11.0
+
+      - name: Install dependencies
+        run: devbox run install
+
+      - name: Migrate changes
+        run: devbox run migrate
+
+      - name: Run migration test
+        run: devbox run poetry run pytest .

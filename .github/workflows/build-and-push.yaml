@@ -1,8 +1,8 @@
-name: Main Workflow
+name: Build and push
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
     tags: ["v*"]
 
 env:
@@ -10,8 +10,12 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
+  build_and_push:
     runs-on: ubuntu-latest
+    needs:
+      - test_pytest
+      - test_linting
+      - test_migration
     permissions:
       contents: read
       packages: write
