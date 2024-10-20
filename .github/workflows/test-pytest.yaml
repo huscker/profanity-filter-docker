@@ -28,8 +28,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install curl
-        run: apt-get update && apt-get install -y curl
+      - name: Install packages
+        run: apt-get update && apt-get install -y curl sudo
 
       - name: Install devbox
         uses: jetify-com/devbox-install-action@v0.11.0
