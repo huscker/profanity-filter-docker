@@ -9,12 +9,11 @@ on:
 jobs:
   test_migration:
     runs-on: ubuntu-latest
-    container: ubuntu:latest
     env:
       POSTGRES_DATABASE: test
       POSTGRES_PASSWORD: test
       POSTGRES_USER: test
-      POSTGRES_HOST: postgres
+      POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
     services:
       postgres:
