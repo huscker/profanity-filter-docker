@@ -32,7 +32,7 @@ jobs:
         run: apt-get update && apt-get install -y curl sudo
 
       - name: Install devbox
-        run: DEVBOX_USE_VERSION=0.8.0 curl -fsSL https://get.jetify.com/devbox | bash
+        run: curl -fsSL https://get.jetify.com/devbox | FORCE=1 bash
 
       - name: Install devbox dependencies
         run: devbox install
