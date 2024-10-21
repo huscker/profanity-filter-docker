@@ -14,7 +14,6 @@ jobs:
       POSTGRES_DATABASE: test
       POSTGRES_PASSWORD: test
       POSTGRES_USER: test
-      POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
     services:
       postgres:
@@ -23,7 +22,6 @@ jobs:
           POSTGRES_DB: ${POSTGRES_DATABASE}
           POSTGRES_USER: ${POSTGRES_USER}
           POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-          POSTGRES_HOST: 0.0.0.0
         ports:
           - 5432:5432
     steps:
@@ -43,6 +41,10 @@ jobs:
 
       - name: Migrate changes
         run: devbox run migrate
+        env:
+          POSTGRES_HOST: postgres
 
       - name: Run migration test
         run: devbox run poetry run pytest .
+        env:
+          POSTGRES_HOST: postgres
