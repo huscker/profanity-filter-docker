@@ -12,11 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install devbox
-        uses: jetify-com/devbox-install-action@v0.11.0
-
-      - name: Install dependencies
-        run: devbox run install
-
-      - name: Run pre-commit checks
-        run: devbox run mkdocs gh-deploy
+      - name: Deploy docs
+        uses: mhausenblas/mkdocs-deploy-gh-pages@nomaterial
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG_FILE: mkdocs.yaml
