@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "master" ]
   pull_request:
-    branches: ["master"]
+    branches: [ "master" ]
 
 jobs:
   release_charts:
@@ -24,5 +24,7 @@ jobs:
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.0.0-rc.1
         skip_existing: true
+        with:
+          pages_branch: gh-pages
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
