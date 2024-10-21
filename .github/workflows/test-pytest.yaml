@@ -32,7 +32,10 @@ jobs:
         run: apt-get update && apt-get install -y curl sudo
 
       - name: Install devbox
-        uses: jetify-com/devbox-install-action@v0.11.0
+        run: DEVBOX_USE_VERSION=0.8.0 curl -fsSL https://get.jetify.com/devbox | bash
+
+      - name: Install devbox dependencies
+        uses: devbox install
 
       - name: Install dependencies
         run: devbox run install
