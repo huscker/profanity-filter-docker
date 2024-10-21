@@ -10,21 +10,27 @@ jobs:
   test_pytest:
     runs-on: ubuntu-latest
     container: ubuntu:latest
-
+    env:
+      POSTGRES_DATABASE: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_USER: test
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
     services:
       postgres:
         image: postgres:16
         env:
-          POSTGRES_DB: test
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
+          POSTGRES_DB: ${POSTGRES_DATABASE}
+          POSTGRES_USER: ${POSTGRES_USER}
+          POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+          POSTGRES_HOST: 0.0.0.0
         ports:
           - 5432:5432
     steps:
       - uses: actions/checkout@v3
 
       - name: Install packages
-        run: apt-get update && apt-get install -y curl sudo xz-utils
+        run: apt-get update && apt-get install -y curl sudo
 
       - name: Install devbox
         run: curl -fsSL https://get.jetify.com/devbox | FORCE=1 bash
@@ -37,13 +43,6 @@ jobs:
 
       - name: Migrate changes
         run: devbox run migrate
-        env:
-          POSTGRES_DATABASE: test
-          POSTGRES_PASSWORD: test
-          POSTGRES_USER: test
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: 5432
 
       - name: Run migration test
         run: devbox run poetry run pytest .
-
