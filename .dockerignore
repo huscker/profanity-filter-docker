@@ -5,6 +5,7 @@
 /docs/
 /packages/
 /site/
+/demo/
 /.env
 /_config.yml
 /artifacthub-repo.yml
