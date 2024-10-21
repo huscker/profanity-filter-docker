@@ -40,7 +40,7 @@ jobs:
           POSTGRES_DATABASE: test
           POSTGRES_PASSWORD: test
           POSTGRES_USER: test
-          POSTGRES_HOST: localhost
+          POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432
 
       - name: Run migration test
@@ -49,5 +49,5 @@ jobs:
           POSTGRES_DATABASE: test
           POSTGRES_PASSWORD: test
           POSTGRES_USER: test
-          POSTGRES_HOST: localhost
+          POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432
