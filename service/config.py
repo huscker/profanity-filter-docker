@@ -33,6 +33,7 @@ class Config(BaseSettings):
             port=int(self["POSTGRES_PORT"]),
             path=f'{self["POSTGRES_DATABASE"]}',
         )
+        print(self["POSTGRES_URL"].unicode_string())
         return self
 
     @model_validator(mode="before")
