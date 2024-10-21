@@ -1,0 +1,22 @@
+name: Test (linting)
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test_linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.11.0
+
+      - name: Install dependencies
+        run: devbox run install
+
+      - name: Run pre-commit checks
+        run: devbox run pre-commit run -a

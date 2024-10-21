@@ -1,0 +1,53 @@
+name: Test (migration)
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  test_migration:
+    runs-on: ubuntu-latest
+    container: ubuntu:latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install packages
+        run: apt-get update && apt-get install -y curl sudo xz-utils
+
+      - name: Install devbox
+        run: curl -fsSL https://get.jetify.com/devbox | FORCE=1 bash
+
+      - name: Install devbox dependencies
+        run: devbox install
+
+      - name: Install dependencies
+        run: devbox run install
+
+      - name: Migrate changes
+        run: devbox run migrate
+        env:
+          POSTGRES_DATABASE: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_USER: test
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
+
+      - name: Run migration test
+        run: devbox run scripts/migration_check.sh
+        env:
+          POSTGRES_DATABASE: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_USER: test
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432

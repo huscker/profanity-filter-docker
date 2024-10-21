@@ -1,0 +1,17 @@
+name: Deploy (demo)
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+jobs:
+  deploy_demo:
+    runs-on: ubuntu-latest
+    needs:
+      - build_and_push
+      - release_charts
+    steps:
+      - uses: actions/checkout@v3
+
