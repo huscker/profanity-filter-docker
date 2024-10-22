@@ -9,9 +9,9 @@ on:
 jobs:
   deploy_demo:
     runs-on: ubuntu-latest
-    needs:
-      - build_and_push
-      - release_charts
+#    needs:
+#      - build_and_push
+#      - release_charts
     steps:
       - uses: actions/checkout@v3
       - uses: azure/setup-helm@v4.2.0
