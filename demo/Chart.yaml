@@ -1,0 +1,10 @@
+apiVersion: v2
+name: Demo profanity filter service
+description: Helm chart for deploying demo of profanity filter
+type: application
+version: 1.0.0
+appVersion: "1.16.0"
+dependencies:
+  - name: profanity-filter
+    version: 1.0.0
+    repository: https://huscker.github.io/profanity-filter-charts/

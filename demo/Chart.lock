@@ -1,0 +1,6 @@
+dependencies:
+- name: profanity-filter-docker
+  repository: file://../charts/profanity-filter-docker
+  version: 0.1.0
+digest: sha256:9e3780a3be03c0b97427920af6af3dfd7b15deebca37cd12e4b8373d10dfb65c
+generated: "2024-10-20T19:48:55.978544321+03:00"
