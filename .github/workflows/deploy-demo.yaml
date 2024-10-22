@@ -28,7 +28,7 @@ jobs:
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: "Upgrade demo release"
-        run: >
+        run: >-
           helm secrets upgrade
           --wait
           --atomic
