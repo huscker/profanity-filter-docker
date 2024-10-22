@@ -8,6 +8,7 @@ on:
 
 jobs:
   deploy_demo:
+    environment: demo
     runs-on: ubuntu-latest
 #    needs:
 #      - build_and_push
