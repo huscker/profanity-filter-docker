@@ -27,3 +27,5 @@ profanity-filter:
   ingress:
     hostname: "profanity-filter.huscker.space"
     className: "nginx"
+    annotations:
+      cert-manager.io/cluster-issuer: lets-encrypt
