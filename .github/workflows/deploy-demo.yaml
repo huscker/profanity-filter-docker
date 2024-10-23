@@ -19,16 +19,16 @@ jobs:
       - uses: azure/setup-helm@v4.2.0
         with:
           version: 'v3.15.3'
-      - uses: azure/k8s-set-context@v4
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
       - name: "Install helm secrets plugin"
         run: helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.2
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: Setup kubeconfig
+        run: |
+          mkdir ${HOME}/.kube
+          echo ${{ secrets.KUBECONFIG }} > ${HOME}/.kube/config
       - name: "Upgrade demo release"
         run: >-
           helm secrets upgrade
