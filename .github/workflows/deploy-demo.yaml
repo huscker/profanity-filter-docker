@@ -25,12 +25,16 @@ jobs:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: $GPG_PRIVATE_KEY
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       - uses: azure/k8s-set-context@v4
         with:
           method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
+          kubeconfig: $KUBECONFIG
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
       - name: "Upgrade demo release"
         run: >-
           helm secrets upgrade
