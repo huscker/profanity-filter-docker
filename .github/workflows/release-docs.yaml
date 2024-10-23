@@ -1,0 +1,20 @@
+name: Release (docs)
+
+on:
+  workflow_run:
+    workflows:
+      - Build and push
+    types: [ completed ]
+    branches: [ "master" ]
+
+jobs:
+  release_docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Deploy docs
+        uses: mhausenblas/mkdocs-deploy-gh-pages@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG_FILE: mkdocs.yaml

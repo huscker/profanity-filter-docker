@@ -1,0 +1,6 @@
+dependencies:
+- name: profanity-filter
+  repository: https://huscker.github.io/profanity-filter-charts/
+  version: 1.0.0
+digest: sha256:a33787df38c8ad5ddc9ad6453cabba1ac1f6c23dd4d7b00450b60cf89c3e0a69
+generated: "2024-10-23T17:38:50.23074771+03:00"

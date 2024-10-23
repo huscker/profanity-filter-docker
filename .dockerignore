@@ -1,0 +1,12 @@
+/.devbox/
+/.github/
+/.venv/
+/charts/
+/docs/
+/packages/
+/site/
+/demo/
+/.env
+/_config.yml
+/artifacthub-repo.yml
+/mkdocs.yaml

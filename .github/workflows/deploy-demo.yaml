@@ -1,0 +1,46 @@
+name: Deploy (demo)
+
+on:
+  workflow_run:
+    workflows:
+      - Build and push
+    types: [ completed ]
+    branches: [ "master" ]
+
+jobs:
+  deploy_demo:
+    environment: demo
+    runs-on: ubuntu-latest
+#      - release_charts
+    steps:
+      - uses: actions/checkout@v3
+      - uses: azure/setup-helm@v4.2.0
+        with:
+          version: 'v3.15.3'
+      - name: "Install helm secrets plugin"
+        run: helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.2
+      - uses: nhedger/setup-sops@v2
+      - uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: "Upgrade demo release"
+        run: >-
+          helm secrets upgrade
+          --wait
+          --atomic
+          --install
+          --timeout=10m
+          --create-namespace
+          --namespace=profanity-filter-demo
+          --values=demo/values.yaml
+          --values=demo/secrets.yaml
+          profanity-filter
+          demo
+
+
+

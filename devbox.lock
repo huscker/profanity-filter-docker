@@ -85,6 +85,70 @@
         }
       }
     },
+    "mkdocs@1.6.1": {
+      "last_modified": "2024-09-10T15:01:03Z",
+      "resolved": "github:NixOS/nixpkgs/5ed627539ac84809c78b2dd6d26a5cebeb5ae269#mkdocs",
+      "source": "devbox-search",
+      "version": "1.6.1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/2xwhv6wc5ilf89ld81vl9y8psgrn6ck9-python3.12-mkdocs-1.6.1",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/1hd1drg4nqwmq777xshsl7jlf1bl5s3y-python3.12-mkdocs-1.6.1-dist"
+            }
+          ],
+          "store_path": "/nix/store/2xwhv6wc5ilf89ld81vl9y8psgrn6ck9-python3.12-mkdocs-1.6.1"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/6qbihpgpsjf7jilqmnp72msd4qrzza0m-python3.12-mkdocs-1.6.1",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/zrw5mn7nw2kmgpl1s9ymbai4dv6cf00n-python3.12-mkdocs-1.6.1-dist"
+            }
+          ],
+          "store_path": "/nix/store/6qbihpgpsjf7jilqmnp72msd4qrzza0m-python3.12-mkdocs-1.6.1"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/h3jir819a2qmbrbqgl99nqhdk0hdn5p5-python3.12-mkdocs-1.6.1",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/pykmp7xc79fbmzy1zsv26a3wc4m7w9qz-python3.12-mkdocs-1.6.1-dist"
+            }
+          ],
+          "store_path": "/nix/store/h3jir819a2qmbrbqgl99nqhdk0hdn5p5-python3.12-mkdocs-1.6.1"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/4a0rjam29ypxcgp153cv0pfq0yabxa44-python3.12-mkdocs-1.6.1",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/05452kflzkarz5cz0dyjnsngxiwg2j75-python3.12-mkdocs-1.6.1-dist"
+            }
+          ],
+          "store_path": "/nix/store/4a0rjam29ypxcgp153cv0pfq0yabxa44-python3.12-mkdocs-1.6.1"
+        }
+      }
+    },
     "poetry@1.8.3": {
       "last_modified": "2024-09-12T11:58:09Z",
       "plugin_version": "0.0.4",

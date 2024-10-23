@@ -2,8 +2,8 @@
 
 [![Build and Tests](https://img.shields.io/github/actions/workflow/status/huscker/profanity-filter-docker/build.yaml?branch=main)](https://github.com/huscker/profanity-filter-docker/actions/workflows/build.yaml)
 [![Docker Pulls](https://img.shields.io/docker/pulls/huscker/profanity-filter-docker)](https://hub.docker.com/r/huscker/profanity-filter-docker)
-[![Artifact Hub repo](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/profanity-filter-docker)](https://artifacthub.io/packages/helm/profanity-filter-docker/profanity-filter-docker)
-[![Apache-2.0 license](https://img.shields.io/github/license/huscker/profanity-filter-docker)](https://github.com/huscker/profanity-filter-docker/blob/main/LICENSE)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/profanity-filter)](https://artifacthub.io/packages/search?repo=profanity-filter)
+[![MIT license](https://img.shields.io/github/license/huscker/profanity-filter-docker)](https://github.com/huscker/profanity-filter-docker/blob/main/LICENSE)
 [![Built with Devbox](https://www.jetify.com/img/devbox/shield_moon.svg)](https://www.jetify.com/devbox/docs/contributor-quickstart/)
 ---
 Open-source service for filtering profane text.
@@ -52,13 +52,14 @@ docker compose up -d
 ```
 
 ## From helm
-1. Add helm repo
-```bash
-helm repo add profanity-filter-docker https://huscker.github.io/profanity-filter-docker/
+1. Add charts repo
+```console
+helm repo add profanity-filter-charts https://huscker.github.io/profanity-filter-charts/
 ```
+
 2. Install chart
 ```bash
-helm install my-profanity-filter profanity-filter-docker/profanity-filter-docker --version 0.1.0
+helm install profanity-filter profanity-filter-charts/profanity-filter --version 1.0.0
 ```
 # Contribute guide
 1. Fork repository
