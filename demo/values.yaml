@@ -1,28 +1,29 @@
-postgresql:
-  enabled: true
-  auth:
-    postgresPassword: postgres
-    username: filter
-    password: filter
-    database: filter
-  primary:
-    persistence:
-      size: 2Gi
-  metrics:
-    enabled: false
+profanity-filter:
+  postgresql:
+    enabled: true
+    auth:
+      postgresPassword: postgres
+      username: filter
+      password: filter
+      database: filter
+    primary:
+      persistence:
+        size: 2Gi
+    metrics:
+      enabled: false
 
-api:
-  replicaCount: 1
+  api:
+    replicaCount: 1
 
-  autoscaling:
-    enabled: false
+    autoscaling:
+      enabled: false
 
-  metrics:
-    enabled: false
+    metrics:
+      enabled: false
 
-admin:
-  replicaCount: 1
+  admin:
+    replicaCount: 1
 
-ingress:
-  hostname: "profanity-filter.huscker.space"
-  className: "nginx"
+  ingress:
+    hostname: "profanity-filter.huscker.space"
+    className: "nginx"
