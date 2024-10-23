@@ -22,7 +22,7 @@ jobs:
         run: helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.2
       - run: echo "$KUBECONFIG" | wc -c
         env:
-          KUBECONFIG: ${{ secrets.GITHUB_TOKEN}}
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         env:
