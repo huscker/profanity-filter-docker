@@ -20,9 +20,7 @@ jobs:
           version: 'v3.15.3'
       - name: "Install helm secrets plugin"
         run: helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.2
-      - run: echo "${{ secrets.KUBECONFIG }}" | wc -c
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      - uses: nhedger/setup-sops@v2
       - uses: azure/k8s-set-context@v4
         with:
           method: kubeconfig
