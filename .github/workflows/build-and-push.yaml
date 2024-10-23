@@ -2,10 +2,14 @@ name: Build and push
 
 on:
   push:
-    branches: ["master"]
     tags: ["v*"]
-  pull_request:
-    branches: ["master"]
+  workflow_run:
+    workflows:
+      - Test (linting)
+      - Test (migration)
+      - Test (pytest)
+    types: [ completed ]
+    branches: [ "master" ]
 
 env:
   REGISTRY: ghcr.io

@@ -1,10 +1,11 @@
 name: Release (docs)
 
 on:
-  push:
-    branches: ["master"]
-  pull_request:
-    branches: ["master"]
+  workflow_run:
+    workflows:
+      - Build and push
+    types: [ completed ]
+    branches: [ "master" ]
 
 jobs:
   release_docs:
