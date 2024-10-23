@@ -10,7 +10,6 @@ jobs:
   deploy_demo:
     environment: demo
     runs-on: ubuntu-latest
-    secrets: inherit
     #    needs:
 #      - build_and_push
 #      - release_charts
@@ -19,16 +18,16 @@ jobs:
       - uses: azure/setup-helm@v4.2.0
         with:
           version: 'v3.15.3'
-      - uses: azure/k8s-set-context@v4
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBECONFIG }}
       - name: "Install helm secrets plugin"
         run: helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.2
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
         with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      - uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBECONFIG }}
       - name: "Upgrade demo release"
         run: >-
           helm secrets upgrade
