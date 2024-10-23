@@ -25,3 +25,4 @@ admin:
 
 ingress:
   hostname: "profanity-filter.huscker.space"
+  className: "nginx"
