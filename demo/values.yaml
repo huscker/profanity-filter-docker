@@ -24,4 +24,4 @@ admin:
   replicaCount: 1
 
 ingress:
-  hostname: ""
+  hostname: "profanity-filter.huscker.space"
