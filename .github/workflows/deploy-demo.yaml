@@ -11,7 +11,6 @@ jobs:
   deploy_demo:
     environment: demo
     runs-on: ubuntu-latest
-#      - release_charts
     steps:
       - uses: actions/checkout@v3
       - uses: azure/setup-helm@v4.2.0

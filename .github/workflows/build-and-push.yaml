@@ -18,10 +18,6 @@ env:
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
-    needs:
-      - test_pytest
-      - test_linting
-      - test_migration
     permissions:
       contents: read
       packages: write
