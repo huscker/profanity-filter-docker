@@ -22,7 +22,7 @@ jobs:
         run: helm plugin install https://github.com/jkroepke/helm-secrets --version v4.6.2
       - name: Import GPG key
         uses: crazy-max/ghaction-import-gpg@v6
-        with:
+        env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       - uses: azure/k8s-set-context@v4
         with:
