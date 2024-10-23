@@ -24,9 +24,13 @@ jobs:
       - name: Setup kubeconfig
         run: |
           mkdir ${HOME}/.kube
-          echo -n "${{ secrets.KUBECONFIG }}" | base64 --decode > ${HOME}/.kube/config
+          echo -n "$KUBECONFIG" | base64 --decode > ${HOME}/.kube/config
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
       - name: Import GPG key
-        run: echo -n "${{ secrets.GPG_PRIVATE_KEY }}" | base64 --decode | gpg --import
+        run: echo -n "$GPG_KEY" | base64 --decode | gpg --import
+        env:
+          GPG_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: "Upgrade demo release"
         run: >-
           helm secrets upgrade
