@@ -36,8 +36,9 @@ jobs:
           --atomic
           --install
           --timeout=10m
-          --namespace=profanity-filter-demo
           --create-namespace
+          --namespace=profanity-filter-demo
+          --values=demo/values.yaml
           --values=demo/secrets.yaml
           profanity-filter
           demo
