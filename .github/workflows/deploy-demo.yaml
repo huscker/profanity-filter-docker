@@ -27,6 +27,9 @@ jobs:
           echo -n "$KUBECONFIG" | base64 --decode > ${HOME}/.kube/config
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      - run: echo $G | wc -c
+        env:
+          G: ${{ secrets.GPG_PRIVATE_KEY }}
       - name: Import GPG key
         run: echo -n "$GPG_KEY" | base64 --decode | gpg --import
         env:
