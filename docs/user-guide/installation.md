@@ -1,8 +1,5 @@
 # Installation
 
-## Docker
-
-
 ## Docker compose
 1. Configure service
 ```bash
@@ -15,11 +12,12 @@ docker compose up -d
 ```
 
 ## Helm
-1. Add helm repo
-```bash
-helm repo add profanity-filter-docker https://huscker.github.io/profanity-filter-docker/
+1. Add charts repo
+```console
+helm repo add profanity-filter-charts https://huscker.github.io/profanity-filter-charts/
 ```
+
 2. Install chart
 ```bash
-helm install my-profanity-filter profanity-filter-docker/profanity-filter-docker --version 0.1.0
+helm install profanity-filter profanity-filter-charts/profanity-filter --version 1.0.0
 ```

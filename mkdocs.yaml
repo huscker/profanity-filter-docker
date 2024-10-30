@@ -3,6 +3,9 @@ site_description: Project documentation on profanity filter service.
 edit_uri: blob/master/docs/
 nav:
   - Home: index.md
-  - User guide: user-guide/
-  - Developer guide: developer-guide/
+  - 'User guide':
+      - Installation: user-guide/installation.md
+  - 'Developer guide':
+      - Installation: developer-guide/installation.md
+      - Extending functionality: developer-guide/adding-providers.md
 theme: readthedocs
